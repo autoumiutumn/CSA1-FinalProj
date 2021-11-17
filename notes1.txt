@@ -1,0 +1,28 @@
+-- Text Based Dungeon Crawl --
+
+Dungeon Creation
+Room Stuff
+Enemy Battle
+Traps
+Loot???
+
+
+Dungeon
+    --Room--
+        Enemy
+            Battle Method
+        Traps
+        Loot?
+        Desc
+
+
+
+Theme - Space Mines
+
+Overview - Player is a weapon for hire. Recently, a
+
+
+
+
+
+11/8 - Stray away from objects??? I have no clue?
