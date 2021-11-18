@@ -9,7 +9,7 @@ public class Items {
         //               clas, name, dispName,                              || atMod, dRollT, dRollN, dRollMod || type, descType
         String[] w1Maker = {"w", "playerSword1", "Electic Sword MK1",    /* */ "8", "3", "6", "0",          /* */ "melee", "melee1"};
         String[] w2Maker = {"w", "playerRanged1", "Sparkbolt",           /* */ "5", "4", "6", "0",          /* */ "ranged", "ranged1"};
-        String[] w3Maker = {"w", "baseSword", "Energy Pickaxe", };
+        String[] w3Maker = {"w", "baseSword", "Energy Pickaxe",  "4", "2", "6", "3",          /* */ "melee", "melee1"};
 
         weapons.add(w1Maker);
         weapons.add(w2Maker);
