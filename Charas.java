@@ -18,6 +18,11 @@ public class Charas {
     private ArrayList<String[]> inv = new ArrayList<String[]>();
     public ArrayList<String[]> getInv() {return inv;}
 
+    private int coin;
+    public int getCoin(){return coin;}
+    public void setCoin(int nCoin) {coin = nCoin;}
+    public void modCoin(int delta) {coin += delta;}
+
 
     public Charas(String nType, int nMaxHP, ArrayList<String[]> nInv){
         type = nType;
