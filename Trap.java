@@ -6,13 +6,13 @@ public class Trap {
                 // Desc.trap_def_Success
             } else {
                 // Desc.trap_def_Fail
-                player.pChangePHP(Calcu.roll(dif * 2, 10), true);
+                player.ChangeHP(Calcu.roll(dif * 2, 10), true);
             }
 
         } else {
             System.out.println("<<TRAP TRIGGERED>>");
             // Desc.trapHit
-            player.pChangePHP(Calcu.roll(dif * 2, 8), true);
+            player.ChangeHP(Calcu.roll(dif * 2, 8), true);
             
         }
         Room.setIsTrap(3);

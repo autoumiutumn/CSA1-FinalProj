@@ -2,16 +2,16 @@ import java.util.ArrayList;
 public class Items {
     private static ArrayList<String[]> weapons = new ArrayList<String[]>();
     private static ArrayList<String[]> disp = new ArrayList<String[]>();
-    private static String getClas(String[] targItem){
+    public static String getClas(String[] targItem){
         return targItem[0];
     }
-    private static String getName(String[] targItem){
+    public static String getName(String[] targItem){
         return targItem[1];
     }
-    private static String getDName(String[] targItem){
+    public static String getDName(String[] targItem){
         return targItem[2];
     }
-    private static int getAtMod(String[] targItem){
+    public static int getAtMod(String[] targItem){
         if (targItem[0].equals("w")) {
             return Integer.parseInt(targItem[3]);
         } else {
@@ -19,7 +19,7 @@ public class Items {
             return -1;
         }
     }
-    private static int getStock(String[] targItem){
+    public static int getStock(String[] targItem){
         if (targItem[0].equals("d")) {
             return Integer.parseInt(targItem[3]);
         } else {
@@ -27,19 +27,19 @@ public class Items {
             return -1;
         }
     }
-    private static int getIRollAmo(String[] targItem){
+    public static int getIRollAmo(String[] targItem){
         return Integer.parseInt(targItem[4]);
     }
-    private static int getIRollType(String[] targItem){
+    public static int getIRollType(String[] targItem){
         return Integer.parseInt(targItem[5]);
     }
-    private static int getIRollMod(String[] targItem){
+    public static int getIRollMod(String[] targItem){
         return Integer.parseInt(targItem[6]);
     }
-    private static String getType(String[] targItem){
+    public static String getType(String[] targItem){
         return targItem[7];
     }
-    private static String getDescType(String[] targItem){
+    public static String getDescType(String[] targItem){
         return targItem[8];
     }
 
@@ -51,16 +51,21 @@ public class Items {
         String[] wnMaker = {"w", "", "",                                 /* */ "", "", "", "",              /* */ "", ""};
         String[] w1Maker = {"w", "playerSword1", "Stun Sword MK1",       /* */ "6", "4", "6", "0",          /* */ "melee", "melee1"};
         String[] w2Maker = {"w", "playerRanged1", "Sparkbolt",           /* */ "5", "3", "10", "3",          /* */ "ranged", "ranged1"};
-        String[] w3Maker = {"w", "playerSword2", "Stun Sword MK2",       /* */ "8", "6", "6", "0",              /* */ "", ""};
-        String[] w4Maker = {"w", "playerRanged2", "N.E.S.S",             /* */ "7", "4", "12", "0",              /* */ "", ""};
-        String[] w5Maker = {"w", "playerRanged3", "Horseshoe Blaster",   /* */ "3", "10", "4", "10",              /* */ "", ""};
+        String[] w3Maker = {"w", "playerSword2", "Stun Sword MK2",       /* */ "8", "6", "6", "0",              /* */ "melee", "melee2"};
+        String[] w4Maker = {"w", "playerRanged2", "N.E.S.S",             /* */ "7", "4", "12", "0",              /* */ "ranged", "ranged2"};
+        String[] w5Maker = {"w", "playerRanged3", "Horseshoe Blaster",   /* */ "3", "10", "4", "10",              /* */ "ranged", "ranged2"};
 
-        String[] w6Maker = {"w", "baseSword", "Energy Pickaxe",  "4", "2", "6", "3",          /* */ "melee", "melee1"};
-        String[] w7Maker = {"w", "baseRanged", "Broken Crossbow",  "4", "2", "6", "3",          /* */ "melee", "melee1"};
+        String[] w6Maker = {"w", "enemySword", "Energy Pickaxe",  "4", "5", "4", "2",          /* */ "melee", "melee1E"};
+        String[] w7Maker = {"w", "enemyRanged", "Broken Crossbow",  "6", "3", "8", "3",          /* */ "ranged", "ranged1E"};
 
 
         weapons.add(w1Maker);
         weapons.add(w2Maker);
+        weapons.add(w3Maker);
+        weapons.add(w4Maker);
+        weapons.add(w5Maker);
+        weapons.add(w6Maker);
+        weapons.add(w7Maker);
     }
 
     public static void dispSetup() {
@@ -70,6 +75,7 @@ public class Items {
         String[] d2Maker = {"d", "medPak", "Adv. Medical Pack", "1",    /* */ "6", "6", "0",         /* */ "healAdv", "heavyHeal"};
 
         disp.add(d1Maker);
+        disp.add(d2Maker);
     }
 
     // Methods
@@ -99,6 +105,30 @@ public class Items {
         return sum;  
     }
     
+    public static ArrayList<String[]> addItem(ArrayList<String[]> invent, String itemname){
+        boolean found = false;
+        for (int i = 0; i < Items.weapons.size(); i++){
+            if (found) break;
+            if (weapons.get(i)[1].equals(itemname)){
+                invent.add(weapons.get(i));
+                found = true;
+            }
+        }
+        for (int i = 0; i< Items.disp.size(); i++){
+            if (found) break;
+            if (disp.get(i)[1].equals(itemname)){
+                ArrayList<String[]> runThru = new ArrayList<String[]>();
+                runThru.add(disp.get(i));
+                invent = lootAdd(invent, runThru);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("DEBUG - ITEM \"" + itemname + "\" NOT FOUND");
+        }
+        return invent;
+    }
+
     public static int getWeaponMin(String[] targetItem){
         return getIRollAmo(targetItem) + getIRollMod(targetItem);
     }
@@ -113,10 +143,26 @@ public class Items {
         double RollT = (double) getIRollType(targetItem);
         return Math.sqrt(RollA*(Math.pow(RollT,2.0)-1.0))/(2.0*Math.sqrt(3.0));
     }
-    public static String getWeaponRollDisplay(String[] targetItem){
+    public static String getWRollDisplay(String[] targetItem){
         return Integer.toString(getIRollAmo(targetItem)) + Integer.toString(getIRollType(targetItem)) + "+" + Integer.toString(getIRollMod(targetItem));
     }
-    public static String getWeaponHitDataDisplay(String[] targetItem){
+    public static String getWToHitDisplay(String[] targetItem){
         return "+" + Integer.toString(getAtMod(targetItem));
     }
+
+    public static String getInfo(String[] targetItem){
+        return "[Accuracy - " + getWToHitDisplay(targetItem) + ", Damage Average - " + getWeaponAvg(targetItem)+", Damage Deviation - " + getWeaponDev(targetItem) + "]";
+    }
+
+    public static void listInv(ArrayList<String[]> inv, boolean choosing) {
+        for (int i = 0; i < (inv).size(); i++){
+            System.out.print("> ");
+            if (choosing){System.out.print("[" + i +"] ");}
+            System.out.println(Items.getDName(inv.get(i)));
+            if (Items.getClas(inv.get(i)).equals("w")){
+                System.out.println("> " + Items.getInfo(inv.get(i)) + "\n");
+            }
+        }
+    }
+    
 }

@@ -16,4 +16,14 @@ public class Calcu {
     public static String getDebug(){
         return lastRoll;
     }
+
+
+    // Common Rolls
+    public static int rollToHit(String[] usedWeapon) {
+        return Calcu.roll(1, 20) + Items.getAtMod(usedWeapon);
+    }
+
+    public static int TripRoll(String[] usedWeapon) {
+        return Calcu.roll(Items.getIRollAmo(usedWeapon), Items.getIRollMod(usedWeapon)) + Items.getIRollMod(usedWeapon);
+    }
 }

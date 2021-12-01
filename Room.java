@@ -26,15 +26,15 @@ public class Room {
     // Constructor (Kind of, not actual object)
     public static void roomMaker() {
         //                  RoomName RID Doors: N1    S1    E1    W1   TestDesc     
-        //   isT|TD 1-3     isE|ED1-3
+        //   isT|TD 1-3     isE|ED1-3  isLooted
         String[] r1Maker = {"room1", "1", /**/ "-1", "-1", "3", "2", "EntryWay",        
-        /**/ "0", "0", /**/ "0", "0"};
+    /**/ "0", "0", /**/ "0", "0", /**/ "0"};
         roomsL.add(r1Maker);
         String[] r2Maker = {"room2", "2", /**/ "-1", "-1", "1", "-1", "Trap Test",
-        /**/ "1", "3", /**/ "0", "0"};
+        /**/ "1", "3", /**/ "0", "0", /**/ "0"};
         roomsL.add(r2Maker);
         String[] r3Maker = {"room3", "3", /**/ "-1", "-1", "-1", "1", "Encounter Test",
-        /**/ "0", "0", /**/ "0", "0"};
+        /**/ "0", "0", /**/ "1", "1", /**/ "0"};
         roomsL.add(r3Maker);
         
     }
@@ -73,8 +73,8 @@ public class Room {
     public static void setisEnco(int index, int val){roomsL.get(index - 1)[9] = Integer.toString(val);}
     public static void setisEnco(int val){roomsL.get(currentRoom - 1)[9] = Integer.toString(val);}
 
-    public static int isEncoDif(int index){return Integer.parseInt(roomsL.get(index - 1)[10]);}
-    public static int isEncoDif(){return Integer.parseInt(roomsL.get(currentRoom - 1)[10]);}
+    public static int getEncoDif(int index){return Integer.parseInt(roomsL.get(index - 1)[10]);}
+    public static int getEncoDif(){return Integer.parseInt(roomsL.get(currentRoom - 1)[10]);}
 
 
 }

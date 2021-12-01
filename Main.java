@@ -5,15 +5,20 @@ public class Main{
     public static void main(String[] args) {
         // Startup Creation
         Room.roomMaker();
+        Items.weaponSetup();
+        Items.dispSetup();
         descriptMaker();
 
         // Main Game Loop
         Scanner input = new Scanner(System.in);
         ArrayList<String[]> plBuild = new ArrayList<String[]>();
-        Charas player = new Charas("player", 100, plBuild);
+        Items.addItem(plBuild, "playerSword1");
+        Items.addItem(plBuild, "playerRanged1");
+        Charas player = new Charas("player", "Player", 100, 15, plBuild, 0);
         Charas enemy1 = new Charas("npc");
-        Charas enemy2 = new Charas("npc");
-        Charas enemy3 = new Charas("npc");
+        // Charas enemy2 = new Charas("npc"); 
+        // Unused for sake of time / balance
+        
         //  Game Start Up
         System.out.println("> The roar of your boosters fades as the ship touches down. " + 
         "Running EVA protocols without any telecomms to keep you company is a lonely job, but you're out of the cramped cockpit soon enough. \n" + 
@@ -34,10 +39,9 @@ public class Main{
             If Door Command Used, run Door Code
             */
             if (Room.getisEnco() == 1){
-                // Find difficulty
-                // Pull Enemy Data
-                // Set up Characters
-                // Display Desc.encounter_start
+                enemy1.encounterResetEnemy();
+                enemy1.encounterCreateEnemy(Room.getEncoDif());
+                Encounter.runEncounter(player, enemy1);
                 
 
             }
