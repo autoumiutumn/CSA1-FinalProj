@@ -35,7 +35,7 @@ public class Main{
         while (true){
             loopTestCounter++;
             if (loopTestCounter > 1001) break;
-            
+
             /*
             Order of Ops: 
             If there is an encounter, encounter code will run FIRST
@@ -56,6 +56,7 @@ public class Main{
                 Encounter.setRoundCount(1);
 
                 // DESC Desc.encounter_start
+                System.out.println("> Enemies attack!");
                 System.out.println("> BATTLE START! \n > -----------");
                 waitFor(2500);
                 while ((player.getCHP() > 0 && enemy1.getCHP() > 0) || (Encounter.getRoundCount() >= 20)){
@@ -128,13 +129,14 @@ public class Main{
                     }
                 }
                 waitFor(2500);
+                Room.setisEnco(3);
                 if (player.getCHP() <= 0){
                     // Loss
-                    // DESC battle_loss
+                    System.out.println("> You lost."); // DESC battle_loss
                     System.exit(0);
                 } else if (enemy1.getCHP() <= 0){
                     // Win
-                    // DESC battle_win
+                    System.out.println("> You won!"); // DESC battle_win
                     System.out.println("> You got: ");
                     Items.listInv(enemy1.getInv(), false);
                     player.setInv(Items.lootAdd(player.getInv(), enemy1.getInv()));
@@ -142,7 +144,7 @@ public class Main{
                     player.modCoin(enemy1.getCoin());
                 } else {
                     // Draw
-                    // DESC battle_draw
+                    System.out.println("> It's... a draw?");
                 }
             }
             // If encounter == 1, run encounter code
@@ -197,6 +199,7 @@ public class Main{
                             System.out.println("You got: ");
                             Items.listInv(roomInv, false);
                             player.setInv(Items.lootAdd(player.getInv(), roomInv));
+                            Room.setisLooted(3);
                         }
 
                     }

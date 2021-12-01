@@ -3,14 +3,14 @@ public class Trap {
     public static void trapEnc(Charas player, int dif, boolean defuseAttempt) {
         if (defuseAttempt){
             if (Calcu.roll(1, 20) >= dif * 5){
-                // Desc.trap_def_Success
+                System.out.println("> After a tense moment, the trap was disabled.");
             } else {
-                // Desc.trap_def_Fail
+                System.out.println("> During disarming, the trap went off!");
                 player.ChangeHP(Calcu.roll(dif * 2, 10), true);
             }
 
         } else {
-            System.out.println("<<TRAP TRIGGERED>>");
+            System.out.println("> Suddenly, a trap went off!");
             // Desc.trapHit
             player.ChangeHP(Calcu.roll(dif * 2, 8), true);
             
