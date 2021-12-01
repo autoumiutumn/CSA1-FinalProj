@@ -218,7 +218,7 @@ public class Room {
 
     public static int getEncoDif(int index){return Integer.parseInt(roomsL.get(index - 1)[10]);}
     public static int getEncoDif(){return Integer.parseInt(roomsL.get(currentRoom - 1)[10]);}
-    public static void setEncoDif(int index, int val){roomsL.get(index - 1)[8] = Integer.toString(val);}
+    public static void setEncoDif(int index, int val){roomsL.get(index - 1)[10] = Integer.toString(val);}
 
     public static int getisLooted(int index){return Integer.parseInt(roomsL.get(index - 1)[10]);}
     public static int getisLooted(){return Integer.parseInt(roomsL.get(currentRoom - 1)[10]);}
