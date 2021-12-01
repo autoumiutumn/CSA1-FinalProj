@@ -48,7 +48,7 @@ public class Items {
     public static void weaponSetup() {
         //                 0     1     2                                        3       4       5       6           7      8
         //               clas, name, dispName,                              || atMod, dRollN, dRollT, dRollMod || type, descType
-        String[] wnMaker = {"w", "", "",                                 /* */ "", "", "", "",              /* */ "", ""};
+      //String[] wnMaker = {"w", "", "",                                 /* */ "", "", "", "",              /* */ "", ""};
         String[] w1Maker = {"w", "playerSword1", "Stun Sword MK1",       /* */ "6", "4", "6", "0",          /* */ "melee", "melee1"};
         String[] w2Maker = {"w", "playerRanged1", "Sparkbolt",           /* */ "5", "3", "10", "3",          /* */ "ranged", "ranged1"};
         String[] w3Maker = {"w", "playerSword2", "Stun Sword MK2",       /* */ "8", "6", "6", "0",              /* */ "melee", "melee2"};

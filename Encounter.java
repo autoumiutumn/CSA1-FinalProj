@@ -1,5 +1,5 @@
 import java.util.Scanner;
-import java.util.ArrayList;
+// import java.util.ArrayList;
 
 public class Encounter {
     // Static Attributes
@@ -43,9 +43,14 @@ public class Encounter {
                 System.out.println("> Items Available Are: ");
                 Items.listInv(player.getInv(), true);
                 System.out.println("> Type item's number to use");
-                Scanner battleInput = new Scanner(System.in);
+                Scanner input = new Scanner(System.in);
                 // Using Item
-                int itemUsedInt = Integer.parseInt(battleInput.nextLine());
+                // String rawInput = "";
+                // input.nextLine();
+                // rawInput = input.nextLine();
+                // int itemUsedInt = Integer.parseInt(rawInput);
+                input.nextLine();
+                int itemUsedInt = input.nextInt();
                 String[] itemUsed = player.getInv().get(itemUsedInt);
                 if (Items.getClas(itemUsed).equals("w")){
                     // Use desc Items.getDescType(itemUsed)
@@ -61,7 +66,7 @@ public class Encounter {
                     System.out.println("> Using item " + Items.getDName(itemUsed)); // DESC
                     player.ChangeHP(Calcu.TripRoll(itemUsed), true);
                 }
-                battleInput.close();
+                input.close();
             }
             if (initCount == enemy1.getInit()){
                 // Enemy Turn

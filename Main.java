@@ -10,7 +10,6 @@ public class Main{
         descriptMaker();
 
         // Main Game Loop
-        Scanner input = new Scanner(System.in);
         ArrayList<String[]> plBuild = new ArrayList<String[]>();
         Items.addItem(plBuild, "playerSword1");
         Items.addItem(plBuild, "playerRanged1");
@@ -54,8 +53,9 @@ public class Main{
            // Explore Room Loop
             while (true /*PLAYER HEALTH > 0*/) {
                 int RLCurrentRoom = Room.getCRID();
+                Scanner input = new Scanner(System.in);
                 String inputS = (input.nextLine()).toUpperCase();
-                
+                input.close();
                 if (inputS.matches("<STOP>")) {
                     System.out.println("<<< CLOSING PROGRAM >>>");
                     System.exit(0);
