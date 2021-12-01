@@ -111,4 +111,25 @@ public class Charas {
         displName = "";
         init = -1;
     }
+
+    public void encounterCreateEnemy(String name) {
+        if (name.matches("Jenna") && Room.getCRID() == 27){
+            this.type = "jenna";
+            this.cHP = 69;
+            this.maxHP = 69;
+            ArrayList<String[]> invBuild = new ArrayList<String[]>();
+            invBuild = Items.addItem(invBuild, "jnaRanged");
+            // invBuild = Items.addItem(invBuild, "jnaFlannel");
+            // invBuild = Items.addItem(invBuild, "jnaSkirt");
+            invBuild = Items.addItem(invBuild, "jnaLeg");
+            invBuild = Items.addItem(invBuild, "jnaShoes");
+            invBuild = Items.addItem(invBuild, "jnaGlass");
+            invBuild = Items.addItem(invBuild, "hrt");
+            this.inv = invBuild;
+            coin = 200;
+            armor = 7;
+            displName = "Jenna L.A";
+            init = -1;
+        }
+    }
 }

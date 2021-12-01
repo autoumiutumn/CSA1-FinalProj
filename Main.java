@@ -49,7 +49,11 @@ public class Main{
             */
             if (Room.getisEnco() == 1){
                 enemy1.encounterResetEnemy();
-                enemy1.encounterCreateEnemy(Room.getEncoDif());
+                if (Room.getCRID() != 27){
+                    enemy1.encounterCreateEnemy(Room.getEncoDif());
+                } else {
+                    enemy1.encounterCreateEnemy("Jenna");
+                }
                 Room.setisEnco(2);
                 // Set initiative
                 player.setInit(Calcu.roll(1, 20));
@@ -67,6 +71,10 @@ public class Main{
 
                         // Print Stuff
                         System.out.println("> It's your turn!");
+                        System.out.println("> --");
+                        System.out.println("> Enemy HP : " + enemy1.getCHP());
+                        System.out.println("> Enemy Armor : " + enemy1.getArmor());
+                        System.out.println("> --");
                         System.out.println("> Your hp is : " + player.getCHP());
                         System.out.println("> Items Available Are: ");
                         Items.listInv(player.getInv(), true);
@@ -112,7 +120,17 @@ public class Main{
                                 }
                             }
                         }
-                        if (biIndex != -1){
+                        if (enemy1.getType().matches("jenna") && enemy1.getCHP() <= 34){
+                            String[] targetItem = enemy1.getInv().get(1);
+                            for (int i = 0; i < enemy1.getInv().size(); i++){
+                                if (Items.getName(enemy1.getInv().get(i)).equals("hrt")){
+                                    targetItem = enemy1.getInv().get(i);
+                                }
+                            }
+                            System.out.println("> Using item " + Items.getDName(targetItem)); // DESC
+                            enemy1.ChangeHP(Calcu.TripRoll(targetItem), false);
+                        }
+                        else if (biIndex != -1){
                             String[] itemUsed = enemy1.getInv().get(biIndex);
                             // Use desc Items.getDescType(itemUsed)
                             System.out.println("> Using weapon " + Items.getDName(itemUsed)); // DESC
