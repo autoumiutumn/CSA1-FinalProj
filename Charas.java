@@ -68,7 +68,24 @@ public class Charas {
         this.maxHP = Calcu.roll(3, 8) + ((30*difficulty) - 14);
         this.cHP = maxHP;
         this.armor = 7 + (difficulty * 3);
-        this.displName = "TestName";    // NEED DESC
+        int nameID = Calcu.randIntBo(1, 5);
+        switch (nameID) {
+            case 1:
+                this.displName = "Stellar Hound";
+                break;
+            case 2:
+                this.displName = "Astroid Gremlin";
+                break;
+            case 3:
+                this.displName = "Moon Machine";
+                break;
+            case 4:
+                this.displName = "Robotic Scavenger";
+                break;
+            default:
+                this.displName = "TestName";
+                break;
+        }
         ArrayList<String[]> invBuild = new ArrayList<String[]>();
         if (Math.random() < 0.5) {
             invBuild = Items.addItem(invBuild, "enemySword");

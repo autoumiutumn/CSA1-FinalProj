@@ -17,6 +17,10 @@ public class Calcu {
         return lastRoll;
     }
 
+    // [Min, Max)
+    public static int randIntBo(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
+    }
 
     // Common Rolls
     public static int rollToHit(String[] usedWeapon) {

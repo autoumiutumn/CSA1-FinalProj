@@ -71,8 +71,8 @@ public class Items {
     public static void dispSetup() {
         //                 0     1     2         3                               4       5       6           7      8
         //                clas, name, dispName, stock                      ||  hRollT, hRollN, hRollMod || type, descType   
-        String[] d1Maker = {"d", "healKit", "Medical Kit", "1",         /* */ "2", "8", "0",         /* */ "healBasic", "lightHeal"};
-        String[] d2Maker = {"d", "medPak", "Adv. Medical Pack", "1",    /* */ "6", "6", "0",         /* */ "healAdv", "heavyHeal"};
+        String[] d1Maker = {"d", "healKit", "Medical Kit", "1",         /* */ "3", "8", "0",         /* */ "healBasic", "lightHeal"};
+        String[] d2Maker = {"d", "medPak", "Adv. Medical Pack", "1",    /* */ "8", "8", "0",         /* */ "healAdv", "heavyHeal"};
 
         disp.add(d1Maker);
         disp.add(d2Maker);
@@ -149,9 +149,6 @@ public class Items {
             System.out.print("> ");
             if (choosing){System.out.print("[" + i +"] ");}
             System.out.println(Items.getDName(inv.get(i)));
-            if (Items.getClas(inv.get(i)).equals("d")){
-                System.out.println(" x" + Items.getStock(inv.get(i)));
-            }
             if (Items.getClas(inv.get(i)).equals("w")){
                 System.out.println("> " + Items.getInfo(inv.get(i)) + "\n");
             }

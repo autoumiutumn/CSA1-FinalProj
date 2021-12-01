@@ -5,6 +5,7 @@ public class Main{
     public static void main(String[] args) {
         // Startup Creation
         Room.roomMaker();
+        Room.TrEnSetup(6,6);
         Items.weaponSetup();
         Items.dispSetup();
         descriptMaker();
@@ -17,9 +18,10 @@ public class Main{
         Items.addItem(plBuild, "healKit");
         
         Charas player = new Charas("player", "Player", 100, 15, plBuild, 0);
-        for (int i = 0; i < player.getInv().size(); i++){
-            System.out.println(Items.getDName(player.getInv().get(i)));
-        }
+        
+        // for (int i = 0; i < player.getInv().size(); i++){
+        //     System.out.println(Items.getDName(player.getInv().get(i)));
+        // }
         
         Charas enemy1 = new Charas("npc");
         // Charas enemy2 = new Charas("npc"); 
@@ -90,6 +92,7 @@ public class Main{
                             // Use desc Items.getDescType(itemUsed)
                             System.out.println("> Using item " + Items.getDName(itemUsed)); // DESC
                             player.ChangeHP(Calcu.TripRoll(itemUsed), false);
+                            player.getInv().remove(itemUsedInt);
                         }
                         System.out.println("-----------");
                         waitFor(2500);
@@ -151,7 +154,7 @@ public class Main{
             System.out.println("> " + Room.getTDesc(Room.getCRID()));
             System.out.println("> COMMANDS");
             System.out.println("> Type SEARCH to search for traps; Type LOOT to interact with loot;" + 
-            " Type DOOR (NORTH, SOUTH, EAST, or WEST) to use that door.");
+            " Type DOOR (NORTH, SOUTH, EAST, or WEST) to use that door; Type ITEM to use your items; If you want to leave, type EXIT");
            // Explore Room Loop
             while (true /*PLAYER HEALTH > 0*/) {
                 int RLCurrentRoom = Room.getCRID();
@@ -174,7 +177,8 @@ public class Main{
 
                     else if (inputS.contains("LOOT")){
                         if (Room.getisLooted() == 0){
-                            double key = (double) Math.random() * 100;
+                            double key = Math.random() * 100;
+                            int coinEarned = 0;
                             ArrayList<String[]> roomInv = new ArrayList<String[]>();
                             if (key < 50.0){
                                 // nothing
@@ -182,26 +186,60 @@ public class Main{
                             } else if (key < 75.0){
                                 // low heal
                                 Items.addItem(roomInv, "healKit");
+                                coinEarned = (int) (key / 5.0);
                             } else if (key < 87.5){
                                 // high heal
                                 Items.addItem(roomInv, "medPak");
+                                coinEarned = (int) (key / 5.0);
                             } else {
                                 // weapon
-                                double key2 = (double) Math.random() * 100;
-                                if (key2 < (1/3)){
+                                coinEarned = (int) (key / 5.0);
+                                double key2 = Math.random() * 100;
+                                if (key2 < 33.3){
                                     Items.addItem(roomInv, "playerSword2");
-                                } else if (key2 < (2/3)){
+                                } else if (key2 < 66.6){
                                     Items.addItem(roomInv, "playerRanged2");
                                 } else {
                                     Items.addItem(roomInv, "playerRanged3");
                                 }
                             }
-                            System.out.println("You got: ");
-                            Items.listInv(roomInv, false);
-                            player.setInv(Items.lootAdd(player.getInv(), roomInv));
+                            if (key >= 50.0){
+                                System.out.println("> You got: ");
+                                Items.listInv(roomInv, false);
+                                player.setInv(Items.lootAdd(player.getInv(), roomInv));
+                                System.out.println("> You also got " + coinEarned + " space dollars!");
+                                player.modCoin(coinEarned);
+                            }
                             Room.setisLooted(3);
+                        } else {
+                            System.out.println("> The room was already looted.");
                         }
 
+                    }
+
+                    else if (inputS.contains("ITEM")){
+                        System.out.println("> Items Available Are: ");
+                        Items.listInv(player.getInv(), true);
+                        System.out.println("> Type item's number to use. (Type -1 to cancel)");
+                        // Using Item
+                        // String rawInput = "";
+                        // input.nextLine();
+                        // rawInput = input.nextLine();
+                        // int itemUsedInt = Integer.parseInt(rawInput);
+                        int itemUsedInt = input.nextInt();
+                        input.nextLine();
+                        if (itemUsedInt != -1){
+                            String[] itemUsed = player.getInv().get(itemUsedInt);
+                            if (Items.getClas(itemUsed).equals("w")){
+                                // Use desc Items.getDescType(itemUsed)
+                                System.out.println("> Can't use that here!");
+                            } else if (Items.getClas(itemUsed).equals("d")){
+                                // Use desc Items.getDescType(itemUsed)
+                                System.out.println("> Using item " + Items.getDName(itemUsed)); // DESC
+                                player.ChangeHP(Calcu.TripRoll(itemUsed), false);
+                                player.getInv().remove(itemUsedInt);
+                            } 
+                        }
                     }
 
                     else if (inputS.contains("DOOR")){
@@ -236,8 +274,24 @@ public class Main{
                                 }
                                 break;
                             default:
-                                System.out.println("Door not found");
+                                System.out.println("> Door not found");
                                 break;
+                        }
+                    }
+                    else if (inputS.contains("EXIT")){
+                        if (Room.getCRID() == 1){
+                            System.out.println("> Are you sure you want to leave? Type YES to confirm.");
+                            String leaveInput = (input.nextLine()).toUpperCase();
+                            if (leaveInput.equals("YES")){
+                                System.out.println("> Leaving...");
+                                int exploredRooms = Room.getPastRooms().size();
+                                System.out.println("> You left with " + player.getCoin() + " space dollars, and " + exploredRooms + "/24 rooms discovered!");
+                                System.exit(0);
+                            } else {
+                                System.out.println("> Ok.");
+                            }
+                        } else {
+                            System.out.println("> You can't leave from this room! Go to the entry hall first.");
                         }
                     }
                 }
@@ -245,6 +299,10 @@ public class Main{
                 if (RLCurrentRoom != Room.getCRID()) {
                     break;
                 }
+                System.out.println("> " + Room.getTDesc(Room.getCRID()));
+                System.out.println("> COMMANDS");
+                System.out.println("> Type SEARCH to search for traps; Type LOOT to interact with loot;" + 
+                " Type DOOR (NORTH, SOUTH, EAST, or WEST) to use that door; Type ITEM to use your items; If you want to leave, type EXIT");
             }
         }
     }

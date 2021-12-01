@@ -7,6 +7,9 @@ public class Room {
     private static int currentRoom = 1; 
     public static int getCRID() {return currentRoom;}
     private static ArrayList<Integer> pastRooms = new ArrayList<Integer>();
+    public static ArrayList<Integer> getPastRooms() {
+        return pastRooms;
+    }
     public static boolean searchPastRooms(int iRID) {
         for (int i : pastRooms){
             if (i == iRID){
@@ -19,8 +22,63 @@ public class Room {
 
     // Methods
     public static void goTo(int rIndex){
-        pastRooms.add(currentRoom);
+        boolean roomFound = false;
+        for (int i = 0; i < pastRooms.size(); i++){
+            if (i == currentRoom) roomFound = true;
+        }
+        if (!roomFound) {pastRooms.add(currentRoom);}
         currentRoom = rIndex;
+    }
+
+    public static void TrEnSetup(int trapGoal, int encGoal){
+        ArrayList<Integer> trapExclude = new ArrayList<Integer>();
+        trapExclude.add(1);
+        ArrayList<Integer> EncExclude = new ArrayList<Integer>();
+        EncExclude.add(1);
+        EncExclude.add(4);
+        EncExclude.add(7);
+        EncExclude.add(11);
+        EncExclude.add(14);
+        EncExclude.add(18);
+        EncExclude.add(20);
+        // From 2 - 24 (22)
+        if (trapGoal <= 22){
+            while (trapGoal > 0){
+                int targ = Calcu.randIntBo(2, 25);
+                boolean addIt = true;
+                for (int i = 0; i < trapExclude.size(); i++){
+                    if (targ == trapExclude.get(i)){
+                        addIt = false;
+                        break;
+                    }
+                }
+                if (addIt){
+                    setIsTrap(targ,1);
+                    setTrapDif(targ, 1);
+                    trapExclude.add(targ);
+                    trapGoal--;
+                }
+            }
+        }
+        if (encGoal <= 17){
+            while (encGoal > 0){
+                int targ = Calcu.randIntBo(2, 25);
+                boolean addIt = true;
+                for (int i = 0; i < EncExclude.size(); i++){
+                    if (targ == EncExclude.get(i)){
+                        addIt = false;
+                        break;
+                    }
+                }
+                if (addIt){
+                    setisEnco(targ,1);
+                    setEncoDif(targ, 1);
+                    EncExclude.add(targ);
+                    encGoal--;
+                }
+            }
+        }
+        
     }
 
     // Constructor (Kind of, not actual object)
@@ -144,6 +202,7 @@ public class Room {
 
     public static int getTrapDif(int index){return Integer.parseInt(roomsL.get(index - 1)[8]);}
     public static int getTrapDif(){return Integer.parseInt(roomsL.get(currentRoom - 1)[8]);}
+    public static void setTrapDif(int index, int val){roomsL.get(index - 1)[8] = Integer.toString(val);}
 
     public static int getisEnco(int index){return Integer.parseInt(roomsL.get(index - 1)[9]);}
     public static int getisEnco(){return Integer.parseInt(roomsL.get(currentRoom - 1)[9]);}
@@ -152,6 +211,7 @@ public class Room {
 
     public static int getEncoDif(int index){return Integer.parseInt(roomsL.get(index - 1)[10]);}
     public static int getEncoDif(){return Integer.parseInt(roomsL.get(currentRoom - 1)[10]);}
+    public static void setEncoDif(int index, int val){roomsL.get(index - 1)[8] = Integer.toString(val);}
 
     public static int getisLooted(int index){return Integer.parseInt(roomsL.get(index - 1)[10]);}
     public static int getisLooted(){return Integer.parseInt(roomsL.get(currentRoom - 1)[10]);}
