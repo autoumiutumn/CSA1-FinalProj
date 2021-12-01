@@ -13,7 +13,14 @@ public class Main{
         ArrayList<String[]> plBuild = new ArrayList<String[]>();
         Items.addItem(plBuild, "playerSword1");
         Items.addItem(plBuild, "playerRanged1");
+        Items.addItem(plBuild, "healKit");
+        Items.addItem(plBuild, "healKit");
+        
         Charas player = new Charas("player", "Player", 100, 15, plBuild, 0);
+        for (int i = 0; i < player.getInv().size(); i++){
+            System.out.println(Items.getDName(player.getInv().get(i)));
+        }
+        
         Charas enemy1 = new Charas("npc");
         // Charas enemy2 = new Charas("npc"); 
         // Unused for sake of time / balance
@@ -138,7 +145,6 @@ public class Main{
                     // DESC battle_draw
                 }
             }
-
             // If encounter == 1, run encounter code
             System.out.println("> " + Room.getTDesc(Room.getCRID()));
             System.out.println("> COMMANDS");
@@ -165,7 +171,34 @@ public class Main{
                     }
 
                     else if (inputS.contains("LOOT")){
-                        // LOOT CODE
+                        if (Room.getisLooted() == 0){
+                            double key = (double) Math.random() * 100;
+                            ArrayList<String[]> roomInv = new ArrayList<String[]>();
+                            if (key < 50.0){
+                                // nothing
+                                System.out.println("> You found nothing of value.");
+                            } else if (key < 75.0){
+                                // low heal
+                                Items.addItem(roomInv, "healKit");
+                            } else if (key < 87.5){
+                                // high heal
+                                Items.addItem(roomInv, "medPak");
+                            } else {
+                                // weapon
+                                double key2 = (double) Math.random() * 100;
+                                if (key2 < (1/3)){
+                                    Items.addItem(roomInv, "playerSword2");
+                                } else if (key2 < (2/3)){
+                                    Items.addItem(roomInv, "playerRanged2");
+                                } else {
+                                    Items.addItem(roomInv, "playerRanged3");
+                                }
+                            }
+                            System.out.println("You got: ");
+                            Items.listInv(roomInv, false);
+                            player.setInv(Items.lootAdd(player.getInv(), roomInv));
+                        }
+
                     }
 
                     else if (inputS.contains("DOOR")){

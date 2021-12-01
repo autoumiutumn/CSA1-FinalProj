@@ -76,5 +76,10 @@ public class Room {
     public static int getEncoDif(int index){return Integer.parseInt(roomsL.get(index - 1)[10]);}
     public static int getEncoDif(){return Integer.parseInt(roomsL.get(currentRoom - 1)[10]);}
 
+    public static int getisLooted(int index){return Integer.parseInt(roomsL.get(index - 1)[10]);}
+    public static int getisLooted(){return Integer.parseInt(roomsL.get(currentRoom - 1)[10]);}
+    public static void setisLooted(int index, int val){roomsL.get(index - 1)[10] = Integer.toString(val);}
+    public static void setisLooted(int val){roomsL.get(currentRoom - 1)[10] = Integer.toString(val);}
+
 
 }

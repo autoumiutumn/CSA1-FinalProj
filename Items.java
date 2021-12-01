@@ -89,16 +89,7 @@ public class Items {
             if (loot.get(i)[0].matches("w")) {
                 sum.add(loot.get(i));
             } else if (loot.get(i)[0].matches("d")){
-                boolean found = false;
-                for (int j = 0; j < sum.size(); j++){
-                    if (sum.get(j)[1].equals(loot.get(i)[1])) {
-                        found = true;
-                        sum.get(j)[3] = Integer.toString(Integer.parseInt(sum.get(j)[3]) + Integer.parseInt(loot.get(i)[3]));
-                    }
-                }
-                if (!found){
-                    sum.add(loot.get(i));
-                }
+                sum.add(loot.get(i));
             }
             
         }
@@ -106,27 +97,26 @@ public class Items {
     }
     
     public static ArrayList<String[]> addItem(ArrayList<String[]> invent, String itemname){
+        ArrayList<String[]> nInvent = invent;
         boolean found = false;
         for (int i = 0; i < Items.weapons.size(); i++){
             if (found) break;
             if (weapons.get(i)[1].equals(itemname)){
-                invent.add(weapons.get(i));
+                nInvent.add(weapons.get(i));
                 found = true;
             }
         }
-        for (int i = 0; i< Items.disp.size(); i++){
+        for (int j = 0; j< Items.disp.size(); j++){
             if (found) break;
-            if (disp.get(i)[1].equals(itemname)){
-                ArrayList<String[]> runThru = new ArrayList<String[]>();
-                runThru.add(disp.get(i));
-                invent = lootAdd(invent, runThru);
+            if (disp.get(j)[1].equals(itemname)){
+                nInvent.add(disp.get(j));
                 found = true;
             }
         }
         if (!found) {
             System.out.println("DEBUG - ITEM \"" + itemname + "\" NOT FOUND");
         }
-        return invent;
+        return nInvent;
     }
 
     public static int getWeaponMin(String[] targetItem){
@@ -159,6 +149,9 @@ public class Items {
             System.out.print("> ");
             if (choosing){System.out.print("[" + i +"] ");}
             System.out.println(Items.getDName(inv.get(i)));
+            if (Items.getClas(inv.get(i)).equals("d")){
+                System.out.println(" x" + Items.getStock(inv.get(i)));
+            }
             if (Items.getClas(inv.get(i)).equals("w")){
                 System.out.println("> " + Items.getInfo(inv.get(i)) + "\n");
             }
