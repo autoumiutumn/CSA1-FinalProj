@@ -31,6 +31,8 @@ public class Room {
     }
 
     public static void TrEnSetup(int trapGoal, int encGoal){
+        ArrayList<Integer> debugTrapSet = new ArrayList<Integer>();
+        ArrayList<Integer> debugEncSet = new ArrayList<Integer>();
         ArrayList<Integer> trapExclude = new ArrayList<Integer>();
         trapExclude.add(1);
         ArrayList<Integer> EncExclude = new ArrayList<Integer>();
@@ -56,6 +58,7 @@ public class Room {
                     setIsTrap(targ,1);
                     setTrapDif(targ, 1);
                     trapExclude.add(targ);
+                    debugTrapSet.add(targ);
                     trapGoal--;
                 }
             }
@@ -74,11 +77,12 @@ public class Room {
                     setisEnco(targ,1);
                     setEncoDif(targ, 1);
                     EncExclude.add(targ);
+                    debugEncSet.add(targ);
                     encGoal--;
                 }
             }
         }
-        
+        int test = 1;
     }
 
     // Constructor (Kind of, not actual object)
@@ -169,9 +173,12 @@ public class Room {
         String[] r25Maker = {"room25", "25", /**/ "12", "-1", "-1", "-1", "Hi! If you're reading this, you're either reading the code, or ya found my secret! Thank you so much for playing my game! \n-Lots of love, Jenna L.",
         /**/ "0", "0", /**/ "0", "0", /**/ "0"};
         roomsL.add(r25Maker);
-        String[] r26Maker = {"room26", "26", /**/ "-1", "-1", "-1", "-1", "lesbiab room. for les biens.\n\n\n\nalso you're stuck here.\n:)",
+        String[] r26Maker = {"room26", "26", /**/ "-1", "-1", "27", "-1", "lesbiab room. for les biens.\n\n\n\nalso you're stuck here.\n:)",
         /**/ "0", "0", /**/ "0", "0", /**/ "0"};
         roomsL.add(r26Maker);
+        String[] r27Maker = {"room27", "27", /**/ "-1", "-1", "18", "-1", "SECRET ROOM. You get the sense you shouldn't be here. The east wall is glowing.",
+        /**/ "0", "0", /**/ "1", "3", /**/ "3"};
+        roomsL.add(r27Maker);
     }
 
 

@@ -50,13 +50,14 @@ public class Items {
         //               clas, name, dispName,                              || atMod, dRollN, dRollT, dRollMod || type, descType
       //String[] wnMaker = {"w", "", "",                                 /* */ "", "", "", "",              /* */ "", ""};
         String[] w1Maker = {"w", "playerSword1", "Stun Sword MK1",       /* */ "6", "4", "6", "0",          /* */ "melee", "melee1"};
-        String[] w2Maker = {"w", "playerRanged1", "Sparkbolt",           /* */ "5", "3", "10", "3",          /* */ "ranged", "ranged1"};
-        String[] w3Maker = {"w", "playerSword2", "Stun Sword MK2",       /* */ "8", "6", "6", "0",              /* */ "melee", "melee2"};
-        String[] w4Maker = {"w", "playerRanged2", "N.E.S.S",             /* */ "7", "4", "12", "0",              /* */ "ranged", "ranged2"};
-        String[] w5Maker = {"w", "playerRanged3", "Horseshoe Blaster",   /* */ "3", "10", "4", "10",              /* */ "ranged", "ranged2"};
+        String[] w2Maker = {"w", "playerRanged1", "Sparkbolt",           /* */ "5", "3", "10", "3",         /* */ "ranged", "ranged1"};
+        String[] w3Maker = {"w", "playerSword2", "Stun Sword MK2",       /* */ "8", "6", "6", "0",          /* */ "melee", "melee2"};
+        String[] w4Maker = {"w", "playerRanged2", "N.E.S.S",             /* */ "7", "4", "12", "0",         /* */ "ranged", "ranged2"};
+        String[] w5Maker = {"w", "playerRanged3", "Horseshoe Blaster",   /* */ "3", "10", "4", "10",        /* */ "ranged", "ranged2"};
 
-        String[] w6Maker = {"w", "enemySword", "Energy Pickaxe",  "4", "5", "4", "2",          /* */ "melee", "melee1E"};
-        String[] w7Maker = {"w", "enemyRanged", "Broken Crossbow",  "6", "3", "8", "3",          /* */ "ranged", "ranged1E"};
+        String[] w6Maker = {"w", "enemySword", "Energy Pickaxe",         /* */ "4", "5", "4", "2",          /* */ "melee", "melee1E"};
+        String[] w7Maker = {"w", "enemyRanged", "Broken Crossbow",       /* */ "6", "3", "8", "3",          /* */ "ranged", "ranged1E"};
+        String[] w8Maker = {"w", "jnaRanged", "TransBeam",               /* */ "9", "10", "6", "10",        /* */ "ranged", "rangedJTB"};
 
 
         weapons.add(w1Maker);
@@ -66,6 +67,7 @@ public class Items {
         weapons.add(w5Maker);
         weapons.add(w6Maker);
         weapons.add(w7Maker);
+        weapons.add(w8Maker);
     }
 
     public static void dispSetup() {
@@ -74,8 +76,23 @@ public class Items {
         String[] d1Maker = {"d", "healKit", "Medical Kit", "1",         /* */ "3", "8", "0",         /* */ "healBasic", "lightHeal"};
         String[] d2Maker = {"d", "medPak", "Adv. Medical Pack", "1",    /* */ "8", "8", "0",         /* */ "healAdv", "heavyHeal"};
 
+        // String[] d3Maker = {"d", "jnaFlannel", "Red Plaid Flannel", "1",/* */ "1", "1", "0",         /* */ "jennaDrops", "jennaCloth1"};
+        // String[] d4Maker = {"d", "jnaSkirt", "Black Skirt", "1",        /* */ "1", "1", "0",         /* */ "jennaDrops", "jennaCloth2"};
+        String[] d5Maker = {"d", "jnaLeg", "Gray Thigh Highs", "1",     /* */ "1", "1", "0",         /* */ "jennaDrops", "jennaCloth3"};
+        String[] d6Maker = {"d", "jnaShoes", "White Converse", "1",     /* */ "1", "1", "0",         /* */ "jennaDrops", "jennaCloth4"};
+        String[] d7Maker = {"d", "jnaGlass", "Blue Glasses", "1",       /* */ "1", "1", "0",         /* */ "jennaDrops", "jennaCloth5"};
+        
+        String[] d8Maker = {"d", "hrt", "HRT", "1",                     /* */ "12", "8", "0",        /* */ "jennaDrops", "jennaHeal"};
+        
+
         disp.add(d1Maker);
         disp.add(d2Maker);
+        // disp.add(d3Maker);
+        // disp.add(d4Maker);
+        disp.add(d5Maker);
+        disp.add(d6Maker);
+        disp.add(d7Maker);
+        disp.add(d8Maker);
     }
 
     // Methods
