@@ -238,7 +238,7 @@ public class Main{
                     else if (inputS.contains("ITEM")){
                         System.out.println("> Items Available Are: ");
                         Items.listInv(player.getInv(), true);
-                        System.out.println("> Type item's number to use. (Type -1 to cancel)");
+                        System.out.println("> Type item's number to use. (Type -1 to cancel) (Type -2 to throw out an item)");
                         // Using Item
                         // String rawInput = "";
                         // input.nextLine();
@@ -246,7 +246,7 @@ public class Main{
                         // int itemUsedInt = Integer.parseInt(rawInput);
                         int itemUsedInt = input.nextInt();
                         input.nextLine();
-                        if (itemUsedInt != -1){
+                        if (itemUsedInt >= 0){
                             String[] itemUsed = player.getInv().get(itemUsedInt);
                             if (Items.getClas(itemUsed).equals("w")){
                                 // Use desc Items.getDescType(itemUsed)
@@ -257,6 +257,14 @@ public class Main{
                                 player.ChangeHP(Calcu.TripRoll(itemUsed), false);
                                 player.getInv().remove(itemUsedInt);
                             } 
+                        } else if (itemUsedInt == -2){
+                            System.out.println("> Type target item (Type -1 to cancel)");
+                            int itemUsedInt2 = input.nextInt();
+                            input.nextLine();
+                            if (itemUsedInt2 != -1){
+                                System.out.println("> Removing " + Items.getDName(player.getInv().get(itemUsedInt2)));
+                                player.getInv().remove(itemUsedInt2);
+                            }
                         }
                     }
 
