@@ -128,7 +128,7 @@ public class Charas {
             this.inv = invBuild;
             coin = 200;
             armor = 7;
-            displName = "Jenna Lock-Arnold";
+            displName = "Jenna L.A";
             init = -1;
         }
     }
