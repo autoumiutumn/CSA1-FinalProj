@@ -19,6 +19,7 @@ public class Main{
         // Unused for sake of time / balance
         
         //  Game Start Up
+        Scanner input = new Scanner(System.in);
         System.out.println("> The roar of your boosters fades as the ship touches down. " + 
         "Running EVA protocols without any telecomms to keep you company is a lonely job, but you're out of the cramped cockpit soon enough. \n" + 
         "> Standing before you, the large blast doors of the mine are cracked open. MISSION BEGIN!");
@@ -26,7 +27,7 @@ public class Main{
         int loopTestCounter = 0;
         while (true){
             loopTestCounter++;
-            if (loopTestCounter > 1000) break;
+            if (loopTestCounter > 1001) break;
             
             /*
             Order of Ops: 
@@ -40,11 +41,104 @@ public class Main{
             if (Room.getisEnco() == 1){
                 enemy1.encounterResetEnemy();
                 enemy1.encounterCreateEnemy(Room.getEncoDif());
-                Encounter.runEncounter(player, enemy1);
-                
+                Room.setisEnco(2);
+                // Set initiative
+                player.setInit(Calcu.roll(1, 20));
+                enemy1.setInit(Calcu.roll(1, 20));
+                Encounter.setInitCount(1);
+                Encounter.setRoundCount(1);
 
+                // DESC Desc.encounter_start
+                System.out.println("> BATTLE START! \n > -----------");
+                waitFor(2500);
+                while ((player.getCHP() > 0 && enemy1.getCHP() > 0) || (Encounter.getRoundCount() >= 20)){
+                    if (Encounter.getInitCount() == player.getInit()){
+                        // Player Turn
+
+                        // Print Stuff
+                        System.out.println("> It's your turn!");
+                        System.out.println("> Your hp is : " + player.getCHP());
+                        System.out.println("> Items Available Are: ");
+                        Items.listInv(player.getInv(), true);
+                        System.out.println("> Type item's number to use");
+                        // Using Item
+                        // String rawInput = "";
+                        // input.nextLine();
+                        // rawInput = input.nextLine();
+                        // int itemUsedInt = Integer.parseInt(rawInput);
+                        int itemUsedInt = input.nextInt();
+                        input.nextLine();
+                        String[] itemUsed = player.getInv().get(itemUsedInt);
+                        if (Items.getClas(itemUsed).equals("w")){
+                            // Use desc Items.getDescType(itemUsed)
+                            System.out.println("> Using weapon " + Items.getDName(itemUsed)); // DESC
+                            if (Calcu.rollToHit(itemUsed) >= enemy1.getArmor()){
+                                System.out.println("> Hit!");
+                                enemy1.ChangeHP(Calcu.TripRoll(itemUsed), true);
+                            } else {
+                                System.out.println("> Missed!");
+                            }
+                        } else if (Items.getClas(itemUsed).equals("d")){
+                            // Use desc Items.getDescType(itemUsed)
+                            System.out.println("> Using item " + Items.getDName(itemUsed)); // DESC
+                            player.ChangeHP(Calcu.TripRoll(itemUsed), false);
+                        }
+                        System.out.println("-----------");
+                        waitFor(2500);
+                    }
+                    if (Encounter.getInitCount() == enemy1.getInit()){
+                        // Enemy Turn
+                        System.out.println("> It's the enemy's turn!");
+                        waitFor(2500);
+                        int biIndex = -1;
+                        double biAvg = 0 - Double.MAX_VALUE;
+                        for (int i = 0; i < enemy1.getInv().size(); i++){
+                            if (Items.getClas(enemy1.getInv().get(i)).equals("w")){
+                                String[] targetItem = enemy1.getInv().get(i);
+                                if (Items.getWeaponAvg(targetItem) > biAvg){
+                                    biIndex = i;
+                                    biAvg = Items.getWeaponAvg(targetItem);
+                                }
+                            }
+                        }
+                        if (biIndex != -1){
+                            String[] itemUsed = enemy1.getInv().get(biIndex);
+                            // Use desc Items.getDescType(itemUsed)
+                            System.out.println("> Using weapon " + Items.getDName(itemUsed)); // DESC
+                            if (Calcu.rollToHit(itemUsed) >= player.getArmor()){
+                                System.out.println("> Hit!");
+                                player.ChangeHP(Calcu.TripRoll(itemUsed), true);
+                            } else {
+                                System.out.println("> Missed!");
+                            }
+                        }
+                        waitFor(2500);
+                        System.out.println("-----------");
+                    }
+                    Encounter.setInitCount(Encounter.getInitCount() + 1);
+                    if (Encounter.getInitCount() > 20){
+                        Encounter.setInitCount(1);
+                    }
+                }
+                waitFor(2500);
+                if (player.getCHP() <= 0){
+                    // Loss
+                    // DESC battle_loss
+                    System.exit(0);
+                } else if (enemy1.getCHP() <= 0){
+                    // Win
+                    // DESC battle_win
+                    System.out.println("> You got: ");
+                    Items.listInv(enemy1.getInv(), false);
+                    player.setInv(Items.lootAdd(player.getInv(), enemy1.getInv()));
+                    System.out.println("> You got " + enemy1.getCoin() + " space dollars!");
+                    player.modCoin(enemy1.getCoin());
+                } else {
+                    // Draw
+                    // DESC battle_draw
+                }
             }
-            
+
             // If encounter == 1, run encounter code
             System.out.println("> " + Room.getTDesc(Room.getCRID()));
             System.out.println("> COMMANDS");
@@ -53,9 +147,7 @@ public class Main{
            // Explore Room Loop
             while (true /*PLAYER HEALTH > 0*/) {
                 int RLCurrentRoom = Room.getCRID();
-                Scanner input = new Scanner(System.in);
                 String inputS = (input.nextLine()).toUpperCase();
-                input.close();
                 if (inputS.matches("<STOP>")) {
                     System.out.println("<<< CLOSING PROGRAM >>>");
                     System.exit(0);
@@ -123,5 +215,12 @@ public class Main{
 
     private static void descriptMaker(){
         
+    }
+    public static void waitFor(int milli) {
+        try {
+            Thread.sleep(milli);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }
