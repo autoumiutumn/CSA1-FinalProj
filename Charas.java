@@ -66,6 +66,9 @@ public class Charas {
 
     public void encounterCreateEnemy(int difficulty) {
         this.maxHP = Calcu.roll(3, 8) + ((30*difficulty) - 14);
+        if (this.maxHP <= 0){
+            this.maxHP = 1;
+        }
         this.cHP = maxHP;
         this.armor = 7 + (difficulty * 3);
         int nameID = Calcu.randIntBo(1, 5);
